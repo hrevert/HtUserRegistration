@@ -21,4 +21,20 @@ class Module
             ),
         );
     }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'HtUserRegistration\ModuleOptions' => 'HtUserRegistration\Factory\ModuleOptionsFactory',
+                'HtUserRegistration\UserRegistrationMapper' => 'HtUserRegistration\Factory\UserRegistrationMapperFactory',
+            ),
+            'aliases' => array(
+                'HtUserRegistration\DbAdapter' => 'Zend\Db\Adapter\Adapter'
+            ),
+            'invokables' => array(
+                'HtUserRegistration\UserRegistrationHydrator' => ' HtUserRegistration\Stdlib\Hydrator\UserRegistrationHydrator'
+            )
+        );
+    }
 }

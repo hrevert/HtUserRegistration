@@ -4,6 +4,7 @@ namespace HtUserRegistration\Entity;
 
 use DateTime;
 use Zend\Math\Rand;
+use ZfcUser\Entity\UserInterface;
 
 class UserRegistration implements UserRegistrationInterface
 {
@@ -16,9 +17,9 @@ class UserRegistration implements UserRegistrationInterface
     protected $requestKey;
 
     /**
-     * @var int
+     * @var UserInterface
      */
-    protected $userId;
+    protected $user;
 
     /**
      * @var DateTime
@@ -54,9 +55,9 @@ class UserRegistration implements UserRegistrationInterface
     /**
      * {@inheritDoc}
      */
-    public function setUserId($userId)
+    public function setUser(UserInterface $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -64,9 +65,9 @@ class UserRegistration implements UserRegistrationInterface
     /**
      * {@inheritDoc}
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**

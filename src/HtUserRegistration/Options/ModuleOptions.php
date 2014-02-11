@@ -1,7 +1,11 @@
 <?php
 namespace HtUserRegistration\Options;
 
-class ModuleOptions
+class ModuleOptions implements 
+    TemplateOptionsInterface, 
+    RequestExpiryOptionsInterface, 
+    EmailOptionsInterface, 
+    FeatureOptionsInterface
 {
     /**
      * @var string | array
@@ -24,6 +28,11 @@ class ModuleOptions
     protected $emailTransport = 'Zend\Mail\Transport\Sendmail';
 
     /**
+     * @var boolean
+     */
+    protected $enableRequestExpiry = false;
+
+    /**
      * @var int
      */
     protected $requestExpiry = 86400; // 1 day
@@ -31,7 +40,22 @@ class ModuleOptions
     /**
      * @var string
      */
-    protected $requestEntityClass;
+    protected $requestTableName = 'user_registration';
+
+    /**
+     * @var string
+     */
+    protected $requestEntityClass = 'HtUserRegistration\Entity\UserRegistration';
+
+    /**
+     * @var boolean
+     */
+    protected $sendVerificationEmail = true;
+
+    /**
+     * @var boolean
+     */
+    protected $sendPasswordRequestEmail = true;
 
     
 	public function setEmailFromAddress($emailFromAddress) 
@@ -81,6 +105,18 @@ class ModuleOptions
     {
         return $this->emailTransport;
     }
+
+    public function setEnableRequestExpiry($enableRequestExpiry)
+    {
+        $this->enableRequestExpiry = (bool) $enableRequestExpiry;
+
+        return $this;
+    }
+
+    public function getEnableRequestExpiry()
+    {
+        return $this->enableRequestExpiry;
+    }
     
     public function setRequestExpiry($requestExpiry)
     {
@@ -93,6 +129,18 @@ class ModuleOptions
     {
         return $this->requestExpiry;
     } 
+
+    public function setRequestTableName($requestTableName)
+    {
+        $this->requestTableName = $requestTableName;
+
+        return $this->this;
+    }
+
+    public function getRequestTableName()
+    {
+        return $this->requestTableName;
+    }
     
     public function setRequestEntityClass($requestEntityClass)
     {
@@ -104,6 +152,30 @@ class ModuleOptions
     public function getRequestEntityClass()
     {
         return $this->requestEntityClass;
-    } 
-              
+    }
+    
+    public function setSendVerificationEmail($sendVerificationEmail)
+    {
+        $this->sendVerificationEmail = (bool) $sendVerificationEmail;
+
+        return $this;
+    }
+
+    public function getSendVerificationEmail()
+    {
+        return $this->sendVerificationEmail;
+    }
+    
+    
+    public function setSendPasswordRequestEmail($sendPasswordRequestEmail)
+    {
+        $this->sendPasswordRequestEmail = (bool) $sendPasswordRequestEmail;
+
+        return $this;
+    }
+    
+    public function getSendPasswordRequestEmail()
+    {
+        return $this->sendPasswordRequestEmail;
+    }          
 }

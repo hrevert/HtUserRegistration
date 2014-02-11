@@ -2,6 +2,7 @@
 namespace HtUserRegistration\Entity;
 
 use DateTime;
+use ZfcUser\Entity\UserInterface;
 
 interface UserRegistrationInterface
 {
@@ -28,19 +29,19 @@ interface UserRegistrationInterface
     public function generateRequestKey();
 
     /**
-     * Sets userId
+     * Sets user
      *
-     * @param string $userId
-     * @return int
+     * @param UserInterface $user
+     * @return self
      */
-    public function setUserId($userId);
+    public function setUser(UserInterface $user);
 
     /**
-     * Gets userId
+     * Gets user
      *
      * @return int
      */
-    public function getUserId();
+    public function getUser();
 
     /**
      * Sets requestTime
