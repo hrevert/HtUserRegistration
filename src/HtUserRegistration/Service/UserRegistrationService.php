@@ -8,6 +8,7 @@ use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
 use HtUserRegistration\Entity\UserRegistration;
+use Zend\Crypt\Password\Bcrypt;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {   
@@ -19,6 +20,11 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     protected $moduleOptions;
 
     protected $zfcUserOptions;
+
+    /**
+     * @var \ZfcUser\Mapper\UserInterface
+     */
+    protected $userMapper;
 
     use \Zend\ServiceManager\ServiceLocatorAwareTrait;
 
@@ -96,6 +102,24 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         return $record->getRequestTime() < $expiryDate;
     }
 
+    public function setPassword(array $data, UserRegistration $registrationRecord)
+    {
+        $newPass = $data['newCredential'];
+        $user = $registrationRecord->getUser();
+
+        $bcrypt = new Bcrypt;
+        $bcrypt->setCost($this->getZfcUserOptions()->getPasswordCost());
+
+        $pass = $bcrypt->create($newPass);
+        $user->setPassword($pass);
+
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'record' => $registrationRecord));
+        $this->getUserMapper()->update($user);
+        $registrationRecord->setResponded(UserRegistrationInterface::EMAIL_RESPONDED);
+        $this->getUserRegistrationMapper()->update($registrationRecord);
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'record' => $registrationRecord));        
+    }
+
     /**
      * Gets userRegistrationMapper
      */
@@ -130,5 +154,17 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         }
 
         return $this->zfcUserOptions;
+    }
+
+    /**
+     * Gets userMapper
+     */
+    public function getUserMapper()
+    {
+        if (!$this->userMapper) {
+            $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
+        }
+
+        return $this->userMapper;
     }
 }

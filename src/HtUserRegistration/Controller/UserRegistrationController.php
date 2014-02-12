@@ -53,7 +53,6 @@ class UserRegistrationController extends AbstractActionController
         }
         
         // email not verified, probably invalid token
-
         $vm = new ViewModel();
         $vm->setTemplate('ht-user-registration/user-registration/verify-email-error.phtml');
 
@@ -91,8 +90,17 @@ class UserRegistrationController extends AbstractActionController
         $form = $this->getServiceLocator()->get('HtUserRegistration\SetPasswordForm');
 
         if ($this->getRequest()->isPost()) {
-            
-        }        
+            $form->setData($this->getRequest()->getPost());
+            if ($form->isValid()) {
+               $this->userRegistrationService->setPassword($form->getData(), $record);
+               return $this->redirect()->toRoute('zfcuser/login');
+            }
+        }
+        
+        return array(
+            'user' => $user,
+            'form' => $form
+        );        
     }
 
     public function getUserMapper()
