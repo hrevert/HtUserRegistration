@@ -4,6 +4,7 @@ namespace HtUserRegistration\Mapper;
 use ZfcUser\Entity\UserInterface;
 use ZfcBase\Mapper\AbstractDbMapper;
 use HtUserRegistration\Entity\UserRegistration;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class UserRegistrationMapper extends AbstractDbMapper implements UserRegistrationMapperInterface
 {
@@ -32,7 +33,22 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
      */
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
+        $this->checkEntity($entity, __METHOD__);
+
         return parent::insert($entity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
+    {
+        $this->checkEntity($entity, __METHOD__);
+        if (!$where) {
+            $where = array('user_id' => $entity->getUser()->getId());
+        }
+        
+        return parent::update($entity, $where, $tableName, $hydrator);        
     }
 
 
@@ -47,5 +63,19 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
         $this->tableName = $tableName;
 
         return $this;
+    }
+
+    protected function checkEntity($object, $method)
+    {
+        if (!$object instanceof UserRegistration) {
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    '%s expects parameter 1 to be an instance of %s, %s provided instead',
+                    $method,
+                    'HtUserRegistration\Entity\UserRegistration',
+                    is_object($object) ? get_class($object) : gettype($object)
+                )
+            );
+        }        
     }
 }

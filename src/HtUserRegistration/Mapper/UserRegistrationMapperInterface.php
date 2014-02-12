@@ -23,4 +23,12 @@ interface UserRegistrationMapperInterface
      */
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null);
 
+
+    /**
+     * Updates registration data related to a user
+     * 
+     * @param UserRegistration $entity
+     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     */
+    public function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null);
 }

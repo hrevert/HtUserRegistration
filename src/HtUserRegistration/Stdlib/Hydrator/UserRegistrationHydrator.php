@@ -30,7 +30,7 @@ class UserRegistrationHydrator extends ClassMethods
         return parent::hydrate($data, $object);
     }
 
-    public function checkEntity($object, $method)
+    protected function checkEntity($object, $method)
     {
         if (!$object instanceof UserRegistration) {
             throw new Exception\InvalidArgumentException(
