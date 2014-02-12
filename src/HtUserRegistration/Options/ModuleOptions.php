@@ -15,12 +15,12 @@ class ModuleOptions implements
     /**
      * @var string
      */
-    protected $verificationEmailTemplate = '';
+    protected $verificationEmailTemplate = 'ht-user-registration/mail/verify-email.phtml';
 
     /**
      * @var string
      */
-    protected $passwordRequestEmailTemplate = '';
+    protected $passwordRequestEmailTemplate = 'ht-user-registration/mail/set-password.phtml';
 
     /**
      * @var string
@@ -57,6 +57,9 @@ class ModuleOptions implements
      */
     protected $sendPasswordRequestEmail = true;
 
+    protected $verificationEmailSubject = 'Email Address Verification';
+
+    protected $passwordRequestEmailSubject = 'Set Your Password';
     
 	public function setEmailFromAddress($emailFromAddress) 
     {
@@ -177,5 +180,29 @@ class ModuleOptions implements
     public function getSendPasswordRequestEmail()
     {
         return $this->sendPasswordRequestEmail;
+    }
+    
+    public function setVerificationEmailSubject($verificationEmailSubject)
+    {
+        $this->verificationEmailSubject = $verificationEmailSubject;
+
+        return $this;
+    }
+    
+    public function getVerificationEmailSubject()
+    {
+        return $this->verificationEmailSubject;
+    }
+    
+    public function setPasswordRequestEmailSubject()
+    {
+        $this->passwordRequestEmailSubject = $passwordRequestEmailSubject;
+
+        return $this;
+    }
+    
+    public function getPasswordRequestEmailSubject()
+    {
+        return $this->passwordRequestEmailSubject;
     }          
 }

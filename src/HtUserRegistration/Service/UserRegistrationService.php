@@ -9,6 +9,8 @@ use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
 use HtUserRegistration\Entity\UserRegistration;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Mail\Message as EmailMessage;
+use Zend\View\Model\ViewModel;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {   
@@ -43,14 +45,40 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendVerificationEmail(UserInterface $user)
     {
         // suppose email is sent
-        $this->createRegistrationRecord($user);
+        $registrationRecord = $this->createRegistrationRecord($user);
+
+        $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
+
+        $message = $mailService->createTextMessage(
+            $this->getOptions()->getEmailFromAddress(), 
+            $user->getEmail(), 
+            $this->getOptions()->getVerificationEmailSubject(), 
+            $this->getOptions()->getVerificationEmailTemplate(), 
+            array('user' => $user, 'registrationRecord' => $registrationRecord)
+        );
+
+        $mailService->send($message);
+
     }
 
     public function sendPasswordRequestEmail(UserInterface $user)
     {
         // suppose email is sent
-        $this->createRegistrationRecord($user);        
+        $registrationRecord = $this->createRegistrationRecord($user);
+
+        $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
+
+        $message = $mailService->createTextMessage(
+            $this->getOptions()->getEmailFromAddress(), 
+            $user->getEmail(), 
+            $this->getOptions()->getPasswordRequestEmailSubject(), 
+            $this->getOptions()->getPasswordRequestEmailTemplate(), 
+            array('user' => $user, 'registrationRecord' => $registrationRecord)
+        );
+
+        $mailService->send($message);        
     }
+
 
     protected function createRegistrationRecord($user)
     {
@@ -60,6 +88,8 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         $entity->generateRequestKey();
         $this->getUserRegistrationMapper()->insert($entity);
         $this->getEventManager()->trigger(__METHOD__ . '.post', $this, array('user' => $user, 'record' => $entity));
+        
+        return $entity;
     }
 
     public function verifyEmail(UserInterface $user, $token)
