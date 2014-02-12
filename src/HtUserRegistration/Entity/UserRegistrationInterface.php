@@ -6,20 +6,24 @@ use ZfcUser\Entity\UserInterface;
 
 interface UserRegistrationInterface
 {
-    /**
-     * Sets requestKey
-     *
-     * @param string $requestKey
-     * @return self
-     */ 
-    public function setRequestKey($requestKey);
+    const EMAIL_NOT_RESPONDED = 0;
+
+    const EMAIL_RESPONDED = 1;
 
     /**
-     * Gets requestKey
+     * Sets token
+     *
+     * @param string $token
+     * @return self
+     */ 
+    public function setToken($token);
+
+    /**
+     * Gets token
      *
      * @return string
      */
-    public function getRequestKey();
+    public function getToken();
 
     /**
      * Generates a random requestKey

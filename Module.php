@@ -11,8 +11,8 @@ class Module
         $application    = $e->getApplication();
         $eventManager   = $application->getEventManager();
         $sharedManager  = $eventManager->getSharedManager();
-        $sharedManager->attach('User\Service\User', 'register.post', function(EventInterface $event) use ($application) {
-            $serviceLocator = $application->getServiceLocator();
+        $sharedManager->attach('ZfcUser\Service\User', 'register.post', function (EventInterface $event) use ($application) {
+            $serviceLocator = $application->getServiceManager();
             $userRegistrationService = $serviceLocator->get('HtUserRegistration\UserRegistrationService');
             $userRegistrationService->onUserRegistration($event);
         });
@@ -44,12 +44,13 @@ class Module
                 'HtUserRegistration\ModuleOptions' => 'HtUserRegistration\Factory\ModuleOptionsFactory',
                 'HtUserRegistration\UserRegistrationMapper' => 'HtUserRegistration\Factory\UserRegistrationMapperFactory',
                 'HtUserRegistration\UserRegistrationService' => 'HtUserRegistration\Factory\UserRegistrationServiceFactory',
+                'HtUserRegistration\SetPasswordForm' => 'HtUserRegistration\Factory\SetPasswordFormFactory',
             ),
             'aliases' => array(
                 'HtUserRegistration\DbAdapter' => 'Zend\Db\Adapter\Adapter'
             ),
             'invokables' => array(
-                'HtUserRegistration\UserRegistrationHydrator' => ' HtUserRegistration\Stdlib\Hydrator\UserRegistrationHydrator'
+                'HtUserRegistration\UserRegistrationHydrator' => 'HtUserRegistration\Stdlib\Hydrator\UserRegistrationHydrator'
             )
         );
     }

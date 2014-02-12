@@ -13,7 +13,8 @@ class UserRegistrationMapperFactory implements FactoryInterface
         $options = $serviceLocator->get('HtUserRegistration\ModuleOptions');
         $mapper = new UserRegistrationMapper();
         $mapper->setTableName($options->getRequestTableName());
-        $mapper->setEntityPrototype($options->getRequestEntityClass());
+        $entityPrototypeClass = $options->getRequestEntityClass();
+        $mapper->setEntityPrototype(new $entityPrototypeClass);
         $mapper->setHydrator($serviceLocator->get('HtUserRegistration\UserRegistrationHydrator'));
         $mapper->setDbAdapter($serviceLocator->get('HtUserRegistration\DbAdapter'));
 

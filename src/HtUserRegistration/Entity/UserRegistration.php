@@ -5,6 +5,7 @@ namespace HtUserRegistration\Entity;
 use DateTime;
 use Zend\Math\Rand;
 use ZfcUser\Entity\UserInterface;
+use HtUserRegistration\Exception;
 
 class UserRegistration implements UserRegistrationInterface
 {
@@ -14,8 +15,7 @@ class UserRegistration implements UserRegistrationInterface
     /**
      * @var string
      */
-    protected $requestKey;
-
+    protected $token;
     /**
      * @var UserInterface
      */
@@ -27,11 +27,16 @@ class UserRegistration implements UserRegistrationInterface
     protected $requestTime;
 
     /**
+     * @var int
+     */
+    protected $responded = self::EMAIL_NOT_RESPONDED;
+
+    /**
      * {@inheritDoc}
      */
-    public function setRequestKey($requestKey)
+    public function setToken($token)
     {
-        $this->requestKey = $requestKey;
+        $this->token = $token;
 
         return $this;
     }
@@ -39,9 +44,9 @@ class UserRegistration implements UserRegistrationInterface
     /**
      * {@inheritDoc}
      */
-    public function getRequestKey()
+    public function getToken()
     {
-        return $this->requestKey;
+        return $this->token;
     }
 
     /**
@@ -49,7 +54,7 @@ class UserRegistration implements UserRegistrationInterface
      */
     public function generateRequestKey()
     {
-        $this->setRequestKey(Rand::getString(static::REQUEST_KEY_LENGTH, null, true));
+        $this->setToken(Rand::getString(static::REQUEST_KEY_LENGTH, null, true));
     }
 
     /**
@@ -92,4 +97,33 @@ class UserRegistration implements UserRegistrationInterface
         return $this->requestTime;
     }
 
+    public function setResponded($responded)
+    {
+        if ($responded != static::EMAIL_NOT_RESPONDED && $responded != static::EMAIL_RESPONDED) {
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    '%s expects parameter 1 to be one of %s or %s, %s provided instead',
+                    __METHOD__,
+                    static::EMAIL_NOT_RESPONDED,
+                    static::EMAIL_RESPONDED,
+                    is_object($responded) ? get_class($responded) : gettype($responded)
+                )
+            );
+        }
+
+        $this->responded = (int) $responded;
+
+        return $this;
+    }
+
+
+    public function getResponded()
+    {
+        return $this->responded;
+    }
+
+    public function isResponded()
+    {
+        return $this->responded === static::EMAIL_RESPONDED;
+    }
 }

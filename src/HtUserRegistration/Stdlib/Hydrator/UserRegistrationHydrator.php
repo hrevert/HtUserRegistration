@@ -16,6 +16,8 @@ class UserRegistrationHydrator extends ClassMethods
 
         $data['user_id'] = $object->getUser()->getId();
         unset($data['user']);
+        unset($data['generate_request_key']);
+        unset($data['is_responded']);
         return $data;
     }
 
