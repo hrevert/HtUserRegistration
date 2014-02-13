@@ -1,0 +1,36 @@
+{
+    "name": "hrevert/ht-user-registration",
+    "description": "A Zend Framework 2 module which extends the registration feature of ZfcUser with email address verification",
+    "type": "library",
+    "license": "GPL-2.0",
+    "keywords": [
+        "zf2",
+        "module"
+    ],
+    "homepage": "https://github.com/hrevert/HtUserRegistration",
+    "authors": [
+        {
+            "name": "Hrevert Technologies",
+            "email": "info@hrevert.com"
+        },
+        {
+            "name": "ojhaujjwal",
+            "email": "bring2uo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zf-commons/zfc-user": "0.1.*"
+    },
+    "suggest": {
+        
+    },
+    "autoload": {
+        "psr-0": {
+            "HtUserRegistration": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
