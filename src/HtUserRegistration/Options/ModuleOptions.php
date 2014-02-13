@@ -5,7 +5,8 @@ class ModuleOptions implements
     TemplateOptionsInterface, 
     RequestExpiryOptionsInterface, 
     EmailOptionsInterface, 
-    FeatureOptionsInterface
+    FeatureOptionsInterface,
+    DatabaseOptionsInterface
 {
     /**
      * @var string | array

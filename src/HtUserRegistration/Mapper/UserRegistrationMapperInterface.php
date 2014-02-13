@@ -19,7 +19,7 @@ interface UserRegistrationMapperInterface
      * Inserts a new row
      * 
      * @param UserRegistration $entity
-     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     * @return \Zend\Db\Adapter\Driver\ResultInterface|null
      */
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null);
 
@@ -28,7 +28,7 @@ interface UserRegistrationMapperInterface
      * Updates registration data related to a user
      * 
      * @param UserRegistration $entity
-     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     * @return \Zend\Db\Adapter\Driver\ResultInterface|null
      */
     public function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null);
 }
