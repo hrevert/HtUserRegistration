@@ -128,7 +128,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
 
     public function isTokenExpired(UserRegistrationInterface $record)
     {
-        $expiryDate = new DateTime($this->getOptions()->getRequestExpiry() . 'seconds ago');
+        $expiryDate = new DateTime($this->getOptions()->getRequestExpiry() . ' seconds ago');
         return $record->getRequestTime() < $expiryDate;
     }
 
