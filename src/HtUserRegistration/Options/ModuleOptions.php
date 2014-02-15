@@ -41,12 +41,12 @@ class ModuleOptions implements
     /**
      * @var string
      */
-    protected $requestTableName = 'user_registration';
+    protected $registrationTableName = 'user_registration';
 
     /**
      * @var string
      */
-    protected $requestEntityClass = 'HtUserRegistration\Entity\UserRegistration';
+    protected $registrationEntityClass = 'HtUserRegistration\Entity\UserRegistration';
 
     /**
      * @var boolean
@@ -134,28 +134,28 @@ class ModuleOptions implements
         return $this->requestExpiry;
     } 
 
-    public function setRequestTableName($requestTableName)
+    public function setRegistrationTableName($registrationTableName)
     {
-        $this->requestTableName = $requestTableName;
+        $this->registrationTableName = $registrationTableName;
 
         return $this->this;
     }
 
-    public function getRequestTableName()
+    public function getRegistrationTableName()
     {
-        return $this->requestTableName;
+        return $this->registrationTableName;
     }
     
-    public function setRequestEntityClass($requestEntityClass)
+    public function setRegistrationEntityClass($registrationEntityClass)
     {
-        $this->requestEntityClass = $requestEntityClass;
+        $this->registrationEntityClass = $registrationEntityClass;
 
         return $this;
     } 
     
-    public function getRequestEntityClass()
+    public function getRegistrationEntityClass()
     {
-        return $this->requestEntityClass;
+        return $this->registrationEntityClass;
     }
     
     public function setSendVerificationEmail($sendVerificationEmail)

@@ -3,7 +3,7 @@ namespace HtUserRegistration\Options;
 
 interface DatabaseOptionsInterface
 {
-    public function getRequestTableName();
+    public function getRegistrationTableName();
 
-    public function getRequestEntityClass();
+    public function getRegistrationEntityClass();
 }

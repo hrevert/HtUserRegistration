@@ -64,13 +64,13 @@ return array(
      *
      * Default: user_registration
      */
-    'request_table_name' => 'user_registration',
+    'registration_table_name' => 'user_registration',
     /**
      * Entity Class
      *
      * Default: HtUserRegistration\Entity\UserRegistration
      */
-    'request_entity_class' => 'HtUserRegistration\Entity\UserRegistration',
+    'registration_entity_class' => 'HtUserRegistration\Entity\UserRegistration',
     /**
      * Verification Email Send????
      *
