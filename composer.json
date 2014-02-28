@@ -2,7 +2,7 @@
     "name": "hrevert/ht-user-registration",
     "description": "A Zend Framework 2 module which extends the registration feature of ZfcUser with email address verification",
     "type": "library",
-    "license": "GPL-2.0",
+    "license": "MIT",
     "keywords": [
         "zf2",
         "module"
