@@ -32,6 +32,9 @@ class UserRegistrationController extends AbstractActionController
         $this->userRegistrationService = $userRegistrationService;
     }
 
+    /**
+     * Verifies user`s email address and redirects to login route
+     */
     public function verifyEmailAction()
     {
         $userId = $this->params()->fromRoute('userId', null);
@@ -60,6 +63,9 @@ class UserRegistrationController extends AbstractActionController
 
     }
 
+    /**
+     * Allows users to set their account password
+     */
     public function setPasswordAction()
     {
         $userId = $this->params()->fromRoute('userId', null);
@@ -103,6 +109,9 @@ class UserRegistrationController extends AbstractActionController
         );        
     }
 
+    /**
+     * Gets userMapper
+     */
     public function getUserMapper()
     {
         if (!$this->userMapper) {

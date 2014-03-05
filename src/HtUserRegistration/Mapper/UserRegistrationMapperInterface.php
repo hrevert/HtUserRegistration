@@ -7,6 +7,7 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
 
 interface UserRegistrationMapperInterface
 {
+
     /**
      * finds data of a user
      * @param UserInterface $user
