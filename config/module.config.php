@@ -1,42 +1,42 @@
 <?php
-return array(
-    'view_manager' => array(
-        'template_path_stack' => array(
+return [
+    'view_manager' => [
+        'template_path_stack' => [
             'HtUserRegistration' => __DIR__ . '/../view',
-        ),
-    ),
-    'controllers' => array(
-        'factories' => array(
+        ],
+    ],
+    'controllers' => [
+        'factories' => [
             'HtUserRegistration' => 'HtUserRegistration\Controller\Factory\UserRegistrationFactory'
-        )
-    ),
-    'router' => array(
-        'routes' => array(
-            'zfcuser' => array(
-                'child_routes' => array(
-                    'verify_email' => array(
+        ]
+    ],
+    'router' => [
+        'routes' => [
+            'zfcuser' => [
+                'child_routes' => [
+                    'verify_email' => [
                         'type' => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route' => '/verify-email/:userId/:token',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller'    => 'HtUserRegistration',
                                 'action'        => 'verify-email'
-                            )
-                        )
-                    ),
-                    'set_password' => array(
+                            ]
+                        ]
+                    ],
+                    'set_password' => [
                         'type' => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route' => '/set-password/:userId/:token',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller'    => 'HtUserRegistration',
                                 'action'        => 'set-password'
-                            )
-                        )
-                    ),
-                )
-            )
-        )
-    ),
+                            ]
+                        ]
+                    ],
+                ]
+            ]
+        ]
+    ],
     'ht_user_registration' => []
-);
+];
