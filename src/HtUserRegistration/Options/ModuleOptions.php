@@ -58,8 +58,14 @@ class ModuleOptions implements
      */
     protected $sendPasswordRequestEmail = true;
 
+    /**
+     * @var string
+     */
     protected $verificationEmailSubject = 'Email Address Verification';
 
+    /**
+     * @var string
+     */
     protected $passwordRequestEmailSubject = 'Set Your Password';
     
 	public function setEmailFromAddress($emailFromAddress) 

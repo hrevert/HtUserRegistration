@@ -6,7 +6,7 @@
  * drop this config file in it and change the values as you wish.
  */
 
-return array(
+$options = array(
     /**
      * Email Address that will appear in the 'From' of outbound emails
      *
@@ -102,3 +102,6 @@ return array(
 /**
  * End of HtUserRegistration configuration
  */
+return [
+    'ht_user_registration' => $options
+];

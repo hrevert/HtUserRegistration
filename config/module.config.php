@@ -37,5 +37,6 @@ return array(
                 )
             )
         )
-    )
+    ),
+    'ht_user_registration' => []
 );

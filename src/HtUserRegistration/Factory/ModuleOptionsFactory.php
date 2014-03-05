@@ -9,9 +9,6 @@ class ModuleOptionsFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config');
-        $moduleConfig = isset($config['ht_user_registration']) ? $config['ht_user_registration']  : array();
-
-        return new ModuleOptions($moduleConfig);
+        return new ModuleOptions($serviceLocator->get('Config')['ht_user_registration']);
     }
 }

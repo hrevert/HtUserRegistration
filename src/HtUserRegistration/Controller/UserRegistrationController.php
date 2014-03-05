@@ -77,7 +77,7 @@ class UserRegistrationController extends AbstractActionController
         
         $record = $this->getUserRegistrationMapper()->findByUser($user);
 
-        if (!$this->userRegistrationService->isTokenValid($user, $token, $record)) {
+        if (!$record ||  !$this->userRegistrationService->isTokenValid($user, $token, $record)) {
             // Invalid Token, Lets surprise the attacker
             return $this->notFoundAction(); 
         }
