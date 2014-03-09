@@ -7,7 +7,7 @@ A Zend Framework 2 module which extends the registration feature of ZfcUser. Whe
 
 * Add `"hrevert/ht-user-registration": "dev-master"`, to your composer.json and run `php composer.phar update` 
 * Enable this module in config/application.config.php
-* Copy file located in config/htprofileimage.global.php to ./config/autoload/ht-user-registration.global.php and change the values as you wish.
+* Copy file located in `vendor/hrevert/ht-user-registration/config/ht-user-registration.global.php` to `./config/autoload/ht-user-registration.global.php` and change the values as you wish.
 
 ## Note
 If you do not want unverified users to log in, this module also ships with a authentication adapter.

@@ -37,10 +37,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     use \Zend\ServiceManager\ServiceLocatorAwareTrait;
 
     /**
-     * Listener for registration, when a new user is registered
-     *
-     * @param EventInterface $e
-     * @return void
+     * {@inheritDoc}
      */
     public function onUserRegistration(EventInterface $e)
     {
@@ -55,11 +52,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     }
 
     /**
-     * Sends verification email
-     *
-     * @var UserInterface $user
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function sendVerificationEmail(UserInterface $user)
     {
@@ -81,11 +74,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     }
 
     /**
-     * Sends password request email
-     *
-     * @var UserInterface $user
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function sendPasswordRequestEmail(UserInterface $user)
     {
@@ -125,11 +114,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     }
 
     /**
-     * Verified user`s email
-     *
-     * @param UserInterface $user
-     * @param string $token
-     * @return boolean
+     * {@inheritDoc}
      */
     public function verifyEmail(UserInterface $user, $token)
     {
@@ -151,11 +136,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
 
 
     /**
-     * Checks if registration token is valid
-     *
-     * @param UserInterface $user
-     * @param string $token
-     * @param UserRegistrationInterface $record
+     * {@inheritDoc}
      */
     public function isTokenValid(UserInterface $user, $token, UserRegistrationInterface $record)
     {
@@ -172,10 +153,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     }
 
     /**
-     * Checks if token is expired
-     *
-     * @param UserRegistrationInterface $record
-     * @return bool
+     * {@inheritDoc}
      */
     public function isTokenExpired(UserRegistrationInterface $record)
     {
@@ -184,12 +162,9 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     }
 
     /**
-     * Sets a new password of a user
-     *
-     * @param UserRegistrationInterface $record
-     * @return void
+     * {@inheritDoc}
      */
-    public function setPassword(array $data, UserRegistration $registrationRecord)
+    public function setPassword(array $data, UserRegistrationInterface $registrationRecord)
     {
         $newPass = $data['newCredential'];
         $user = $registrationRecord->getUser();
@@ -209,6 +184,8 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
 
     /**
      * Gets userRegistrationMapper
+     *
+     * @return UserRegistrationMapperInterface
      */
     protected function getUserRegistrationMapper()
     {
