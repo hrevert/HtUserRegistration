@@ -101,6 +101,9 @@ class UserRegistration implements UserRegistrationInterface
         return $this->requestTime;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setResponded($responded)
     {
         if ($responded != static::EMAIL_NOT_RESPONDED && $responded != static::EMAIL_RESPONDED) {
@@ -120,12 +123,17 @@ class UserRegistration implements UserRegistrationInterface
         return $this;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public function getResponded()
     {
         return $this->responded;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function isResponded()
     {
         return $this->responded === static::EMAIL_RESPONDED;

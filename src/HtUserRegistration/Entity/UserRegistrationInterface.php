@@ -61,4 +61,25 @@ interface UserRegistrationInterface
      * @return DateTime
      */
     public function getRequestTime();
+
+    /**
+     * Sets if email is responded or not
+     *
+     * @param int $responded
+     */
+    public function setResponded($responded);
+
+    /**
+     * Gets if email is responded or not
+     * 
+     * @return int
+     */
+    public function getResponded();
+
+    /**
+     * Checks if email is responded
+     *
+     * @return bool
+     */
+    public function isResponded();
 }
