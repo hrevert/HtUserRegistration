@@ -23,7 +23,7 @@ class EmailVerification extends AbstractAdapter
      * Constructor
      *
      * @param UserRegistrationMapperInterface $userRegistrationMapper
-     * @param UserMapper $userMapper
+     * @param UserMapper                      $userMapper
      */
     public function __construct(UserRegistrationMapperInterface $userRegistrationMapper, UserMapper $userMapper)
     {
@@ -32,7 +32,7 @@ class EmailVerification extends AbstractAdapter
     }
 
     /**
-     * @param AdapterChainEvent $e
+     * @param  AdapterChainEvent $e
      * @return bool
      */
     public function authenticate(AdapterChainEvent $e)
@@ -43,8 +43,10 @@ class EmailVerification extends AbstractAdapter
             if (!$registrationRecord || !$registrationRecord->isResponded()) {
                 $e->setCode(AuthenticationResult::FAILURE)
                 ->setMessages(array('Email Address not verified yet'));
-                return false;                
+
+                return false;
             }
+
             return true;
         }
 

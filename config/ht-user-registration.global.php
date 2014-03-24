@@ -13,18 +13,18 @@ $options = array(
      * Default: empty
      */
     'email_from_address' => array(
-    	'email' => 'your_email_address@here.com',
-    	'name' => 'Your name',
-	),
+        'email' => 'your_email_address@here.com',
+        'name' => 'Your name',
+    ),
 
-    /** 
+    /**
      * Template for the verification email sent to users
      *
      * Default: ht-user-registration/mail/verify-email.phtml
      */
     'verification_email_template' => 'ht-user-registration/mail/verify-email.phtml',
 
-    /** 
+    /**
      * Template for the password request email sent to users
      *
      * Default: ht-user-registration/mail/verify-email.phtml

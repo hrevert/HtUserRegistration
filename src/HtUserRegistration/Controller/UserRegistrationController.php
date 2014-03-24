@@ -24,7 +24,7 @@ class UserRegistrationController extends AbstractActionController
 
     /**
      * Constructor
-     * 
+     *
      * @param UserRegistrationServiceInterface $userRegistrationService
      */
     public function __construct(UserRegistrationServiceInterface $userRegistrationService)
@@ -54,7 +54,7 @@ class UserRegistrationController extends AbstractActionController
             // email verified
             return $this->redirect()->toRoute('zfcuser/login');
         }
-        
+
         // email not verified, probably invalid token
         $vm = new ViewModel();
         $vm->setTemplate('ht-user-registration/user-registration/verify-email-error.phtml');
@@ -80,33 +80,34 @@ class UserRegistrationController extends AbstractActionController
         if (!$user) {
             return $this->notFoundAction();
         }
-        
+
         $record = $this->getUserRegistrationMapper()->findByUser($user);
 
         if (!$record ||  !$this->userRegistrationService->isTokenValid($user, $token, $record)) {
             // Invalid Token, Lets surprise the attacker
-            return $this->notFoundAction(); 
+            return $this->notFoundAction();
         }
-        
+
         if ($record->isResponded()) {
             // old link, password is already set by the user
             return $this->redirect()->toRoute('zfcuser/login');
         }
-        
+
         $form = $this->getServiceLocator()->get('HtUserRegistration\SetPasswordForm');
 
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
                $this->userRegistrationService->setPassword($form->getData(), $record);
+
                return $this->redirect()->toRoute('zfcuser/login');
             }
         }
-        
+
         return array(
             'user' => $user,
             'form' => $form
-        );        
+        );
     }
 
     /**

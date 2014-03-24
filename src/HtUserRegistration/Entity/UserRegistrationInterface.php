@@ -13,9 +13,9 @@ interface UserRegistrationInterface
     /**
      * Sets token
      *
-     * @param string $token
+     * @param  string $token
      * @return self
-     */ 
+     */
     public function setToken($token);
 
     /**
@@ -35,7 +35,7 @@ interface UserRegistrationInterface
     /**
      * Sets user
      *
-     * @param UserInterface $user
+     * @param  UserInterface $user
      * @return self
      */
     public function setUser(UserInterface $user);
@@ -50,7 +50,7 @@ interface UserRegistrationInterface
     /**
      * Sets requestTime
      *
-     * @param DateTime $requestTime
+     * @param  DateTime $requestTime
      * @return self
      */
     public function setRequestTime(DateTime $requestTime);
@@ -71,7 +71,7 @@ interface UserRegistrationInterface
 
     /**
      * Gets if email is responded or not
-     * 
+     *
      * @return int
      */
     public function getResponded();

@@ -10,7 +10,7 @@ interface UserRegistrationServiceInterface
     /**
      * Listener for registration, when a new user is registered
      *
-     * @param EventInterface $e
+     * @param  EventInterface $e
      * @return void
      */
     public function onUserRegistration(EventInterface $e);
@@ -36,8 +36,8 @@ interface UserRegistrationServiceInterface
     /**
      * Sets user`s email as verified
      *
-     * @param UserInterface $user
-     * @param string $token
+     * @param  UserInterface $user
+     * @param  string        $token
      * @return boolean
      */
     public function verifyEmail(UserInterface $user, $token);
@@ -45,8 +45,8 @@ interface UserRegistrationServiceInterface
     /**
      * Checks if registration token is valid
      *
-     * @param UserInterface $user
-     * @param string $token
+     * @param UserInterface             $user
+     * @param string                    $token
      * @param UserRegistrationInterface $record
      */
     public function isTokenValid(UserInterface $user, $token, UserRegistrationInterface $record);
@@ -54,7 +54,7 @@ interface UserRegistrationServiceInterface
     /**
      * Checks if token is expired
      *
-     * @param UserRegistrationInterface $record
+     * @param  UserRegistrationInterface $record
      * @return bool
      */
     public function isTokenExpired(UserRegistrationInterface $record);
@@ -62,7 +62,7 @@ interface UserRegistrationServiceInterface
     /**
      * Sets a new password of a user
      *
-     * @param UserRegistrationInterface $record
+     * @param  UserRegistrationInterface $record
      * @return void
      */
     public function setPassword(array $data, UserRegistrationInterface $registrationRecord);

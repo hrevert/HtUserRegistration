@@ -1,5 +1,5 @@
 <?php
 namespace HtUserRegistration\Exception;
 
-interface ExceptionInterface 
+interface ExceptionInterface
 {}

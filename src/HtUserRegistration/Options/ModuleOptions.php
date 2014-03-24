@@ -1,17 +1,17 @@
 <?php
 namespace HtUserRegistration\Options;
 
-class ModuleOptions implements 
-    TemplateOptionsInterface, 
-    RequestExpiryOptionsInterface, 
-    EmailOptionsInterface, 
+class ModuleOptions implements
+    TemplateOptionsInterface,
+    RequestExpiryOptionsInterface,
+    EmailOptionsInterface,
     FeatureOptionsInterface,
     DatabaseOptionsInterface
 {
     /**
      * @var string | array
      */
-    protected $emailFromAddress = ''; 
+    protected $emailFromAddress = '';
 
     /**
      * @var string
@@ -67,26 +67,26 @@ class ModuleOptions implements
      * @var string
      */
     protected $passwordRequestEmailSubject = 'Set Your Password';
-    
-	public function setEmailFromAddress($emailFromAddress) 
+
+    public function setEmailFromAddress($emailFromAddress)
     {
         $this->emailFromAddress = $emailFromAddress;
 
         return $this;
     }
-    
-    public function getEmailFromAddress() 
+
+    public function getEmailFromAddress()
     {
         return $this->emailFromAddress;
     }
-    
+
     public function setVerificationEmailTemplate($verificationEmailTemplate)
     {
         $this->verificationEmailTemplate = $verificationEmailTemplate;
 
         return $this;
     }
-    
+
     public function getVerificationEmailTemplate()
     {
         return $this->verificationEmailTemplate;
@@ -104,13 +104,13 @@ class ModuleOptions implements
         return $this->passwordRequestEmailTemplate;
     }
 
-	public function setEmailTransport($emailTransport) 
+    public function setEmailTransport($emailTransport)
     {
         $this->emailTransport = $emailTransport;
 
         return $this;
     }
-    
+
     public function getEmailTransport()
     {
         return $this->emailTransport;
@@ -127,18 +127,18 @@ class ModuleOptions implements
     {
         return $this->enableRequestExpiry;
     }
-    
+
     public function setRequestExpiry($requestExpiry)
     {
         $this->requestExpiry = $requestExpiry;
 
         return $this;
     }
-    
+
     public function getRequestExpiry()
     {
         return $this->requestExpiry;
-    } 
+    }
 
     public function setRegistrationTableName($registrationTableName)
     {
@@ -151,19 +151,19 @@ class ModuleOptions implements
     {
         return $this->registrationTableName;
     }
-    
+
     public function setRegistrationEntityClass($registrationEntityClass)
     {
         $this->registrationEntityClass = $registrationEntityClass;
 
         return $this;
-    } 
-    
+    }
+
     public function getRegistrationEntityClass()
     {
         return $this->registrationEntityClass;
     }
-    
+
     public function setSendVerificationEmail($sendVerificationEmail)
     {
         $this->sendVerificationEmail = (bool) $sendVerificationEmail;
@@ -175,41 +175,40 @@ class ModuleOptions implements
     {
         return $this->sendVerificationEmail;
     }
-    
-    
+
     public function setSendPasswordRequestEmail($sendPasswordRequestEmail)
     {
         $this->sendPasswordRequestEmail = (bool) $sendPasswordRequestEmail;
 
         return $this;
     }
-    
+
     public function getSendPasswordRequestEmail()
     {
         return $this->sendPasswordRequestEmail;
     }
-    
+
     public function setVerificationEmailSubject($verificationEmailSubject)
     {
         $this->verificationEmailSubject = $verificationEmailSubject;
 
         return $this;
     }
-    
+
     public function getVerificationEmailSubject()
     {
         return $this->verificationEmailSubject;
     }
-    
+
     public function setPasswordRequestEmailSubject()
     {
         $this->passwordRequestEmailSubject = $passwordRequestEmailSubject;
 
         return $this;
     }
-    
+
     public function getPasswordRequestEmailSubject()
     {
         return $this->passwordRequestEmailSubject;
-    }          
+    }
 }

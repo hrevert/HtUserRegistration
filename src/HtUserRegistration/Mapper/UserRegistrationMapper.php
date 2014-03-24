@@ -47,15 +47,14 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
         if (!$where) {
             $where = array('user_id' => $entity->getUser()->getId());
         }
-        
-        return parent::update($entity, $where, $tableName, $hydrator);        
-    }
 
+        return parent::update($entity, $where, $tableName, $hydrator);
+    }
 
     /**
      * Sets tableName
      *
-     * @param string $tableName
+     * @param  string $tableName
      * @return self
      */
     public function setTableName($tableName)
@@ -76,6 +75,6 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
                     is_object($object) ? get_class($object) : gettype($object)
                 )
             );
-        }        
+        }
     }
 }

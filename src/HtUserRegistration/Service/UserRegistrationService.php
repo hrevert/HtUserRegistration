@@ -9,11 +9,9 @@ use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
 use HtUserRegistration\Entity\UserRegistration;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Mail\Message as EmailMessage;
-use Zend\View\Model\ViewModel;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
-{   
+{
     /**
      * @var UserRegistrationMapperInterface
      */
@@ -62,10 +60,10 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
 
         $message = $mailService->createHtmlMessage(
-            $this->getOptions()->getEmailFromAddress(), 
-            $user->getEmail(), 
-            $this->getOptions()->getVerificationEmailSubject(), 
-            $this->getOptions()->getVerificationEmailTemplate(), 
+            $this->getOptions()->getEmailFromAddress(),
+            $user->getEmail(),
+            $this->getOptions()->getVerificationEmailSubject(),
+            $this->getOptions()->getVerificationEmailTemplate(),
             array('user' => $user, 'registrationRecord' => $registrationRecord)
         );
 
@@ -84,21 +82,20 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
 
         $message = $mailService->createHtmlMessage(
-            $this->getOptions()->getEmailFromAddress(), 
-            $user->getEmail(), 
-            $this->getOptions()->getPasswordRequestEmailSubject(), 
-            $this->getOptions()->getPasswordRequestEmailTemplate(), 
+            $this->getOptions()->getEmailFromAddress(),
+            $user->getEmail(),
+            $this->getOptions()->getPasswordRequestEmailSubject(),
+            $this->getOptions()->getPasswordRequestEmailTemplate(),
             array('user' => $user, 'registrationRecord' => $registrationRecord)
         );
 
-        $mailService->send($message);        
+        $mailService->send($message);
     }
-
 
     /**
      * Stored user registration record to database
      *
-     * @return UserInterface $user
+     * @return UserInterface             $user
      * @return UserRegistrationInterface
      */
     protected function createRegistrationRecord(UserInterface $user)
@@ -109,7 +106,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         $entity->generateRequestKey();
         $this->getUserRegistrationMapper()->insert($entity);
         $this->getEventManager()->trigger(__METHOD__ . '.post', $this, array('user' => $user, 'record' => $entity));
-        
+
         return $entity;
     }
 
@@ -120,7 +117,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     {
         $record = $this->getUserRegistrationMapper()->findByUser($user);
         $this->getEventManager()->trigger(__METHOD__, $this, array('user' => $user, 'token' => $token, 'record' => $record));
-        
+
         if (!$record || !$this->isTokenValid($user, $token, $record)) {
             return false;
         }
@@ -128,12 +125,11 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
             $record->setResponded(UserRegistrationInterface::EMAIL_RESPONDED);
             $this->getUserRegistrationMapper()->update($record);
         }
-        
+
         $this->getEventManager()->trigger(__METHOD__ . '.post', $this, array('user' => $user, 'token' => $token, 'record' => $record));
 
         return true;
     }
-
 
     /**
      * {@inheritDoc}
@@ -142,9 +138,11 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     {
         if ($record->getToken() !== $token) {
             $this->getEventManager()->trigger('tokenInvalid', $this, array('user' => $user, 'token' => $token, 'record' => $record));
-            return false;            
+
+            return false;
         } elseif ($this->getOptions()->getEnableRequestExpiry() && $this->isTokenExpired($record)) {
             $this->getEventManager()->trigger('tokenExpired', $this, array('user' => $user, 'token' => $token, 'record' => $record));
+
             return false;
         }
         $this->getEventManager()->trigger('tokenValid', $this, array('user' => $user, 'token' => $token, 'record' => $record));
@@ -158,6 +156,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function isTokenExpired(UserRegistrationInterface $record)
     {
         $expiryDate = new DateTime($this->getOptions()->getRequestExpiry() . ' seconds ago');
+
         return $record->getRequestTime() < $expiryDate;
     }
 
@@ -179,7 +178,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
         $this->getUserMapper()->update($user);
         $registrationRecord->setResponded(UserRegistrationInterface::EMAIL_RESPONDED);
         $this->getUserRegistrationMapper()->update($registrationRecord);
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'record' => $registrationRecord));        
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'record' => $registrationRecord));
     }
 
     /**

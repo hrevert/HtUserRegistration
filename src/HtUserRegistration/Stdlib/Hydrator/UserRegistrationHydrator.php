@@ -18,6 +18,7 @@ class UserRegistrationHydrator extends ClassMethods
         unset($data['user']);
         unset($data['generate_request_key']);
         unset($data['is_responded']);
+
         return $data;
     }
 
@@ -43,6 +44,6 @@ class UserRegistrationHydrator extends ClassMethods
                     is_object($object) ? get_class($object) : gettype($object)
                 )
             );
-        }        
+        }
     }
 }
