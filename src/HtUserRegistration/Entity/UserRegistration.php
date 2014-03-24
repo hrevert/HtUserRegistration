@@ -32,6 +32,14 @@ class UserRegistration implements UserRegistrationInterface
     protected $responded = self::EMAIL_NOT_RESPONDED;
 
     /**
+     * Intiliazes the entity
+     */
+    public function __construct()
+    {
+        $this->requestTime = new DateTime;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setToken($token)
@@ -90,10 +98,6 @@ class UserRegistration implements UserRegistrationInterface
      */
     public function getRequestTime()
     {
-        if (!$this->requestTime instanceof DateTime) {
-            $this->requestTime = new DateTime('now');
-        }
-
         return $this->requestTime;
     }
 
