@@ -6,9 +6,9 @@ use ZfcUser\Entity\UserInterface;
 
 interface UserRegistrationInterface
 {
-    const EMAIL_NOT_RESPONDED = 0;
+    const EMAIL_NOT_RESPONDED = false;
 
-    const EMAIL_RESPONDED = 1;
+    const EMAIL_RESPONDED = true;
 
     /**
      * Sets token
@@ -65,14 +65,14 @@ interface UserRegistrationInterface
     /**
      * Sets if email is responded or not
      *
-     * @param int $responded
+     * @param bool $responded
      */
     public function setResponded($responded);
 
     /**
      * Gets if email is responded or not
      *
-     * @return int
+     * @return bool
      */
     public function getResponded();
 

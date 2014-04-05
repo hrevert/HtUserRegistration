@@ -26,11 +26,8 @@
         
     },
     "autoload": {
-        "psr-0": {
-            "HtUserRegistration": "src/"
-        },
-        "classmap": [
-            "./Module.php"
-        ]
+        "psr-4": {
+            "HtUserRegistration\\": "src/"
+        }
     }
 }
