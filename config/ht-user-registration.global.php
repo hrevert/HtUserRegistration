@@ -90,6 +90,11 @@ $options = array(
      *
      */
     'password_request_email_subject' => 'Set Your Password',
+
+    /**
+     * Post Verification route
+     */
+     'post_verification_route' => 'zfcuser/login'
 );
 
 /**
