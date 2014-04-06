@@ -32,13 +32,6 @@ $options = array(
     'password_request_email_template' => 'ht-user-registration/mail/set-password.phtml',
 
     /**
-     * Mail Transport to use
-     *
-     * Default: 'Zend\Mail\Transport\Sendmail'
-     */
-    'email_transport' => 'Zend\Mail\Transport\Sendmail',
-
-    /**
      * Expire email link or not
      *
      * A token is sent in the emails sent to user. So do you want to enable expiry?

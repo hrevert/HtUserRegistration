@@ -24,11 +24,6 @@ class ModuleOptions implements
     protected $passwordRequestEmailTemplate = 'ht-user-registration/mail/set-password.phtml';
 
     /**
-     * @var string
-     */
-    protected $emailTransport = 'Zend\Mail\Transport\Sendmail';
-
-    /**
      * @var boolean
      */
     protected $enableRequestExpiry = false;
@@ -102,18 +97,6 @@ class ModuleOptions implements
     public function getPasswordRequestEmailTemplate()
     {
         return $this->passwordRequestEmailTemplate;
-    }
-
-    public function setEmailTransport($emailTransport)
-    {
-        $this->emailTransport = $emailTransport;
-
-        return $this;
-    }
-
-    public function getEmailTransport()
-    {
-        return $this->emailTransport;
     }
 
     public function setEnableRequestExpiry($enableRequestExpiry)
