@@ -100,7 +100,8 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     protected function createRegistrationRecord(UserInterface $user)
     {
-        $entity = new UserRegistration;
+        $entityClass = $this->getOptions()->getRegistrationEntityClass();
+        $entity = new $entityClass;
         $this->getEventManager()->trigger(__METHOD__, $this, array('user' => $user, 'record' => $entity));
         $entity->setUser($user);
         $entity->generateRequestKey();
