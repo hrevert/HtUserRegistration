@@ -1,12 +1,22 @@
 <?php
 namespace HtUserRegistration;
 
-use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
-class Module
+class Module implements 
+    BootstrapListenerInterface,
+    ConfigProviderInterface,
+    AutoloaderProviderInterface,
+    ServiceProviderInterface
 {
-    public function onBootstrap(MvcEvent $e)
+    /**
+     * {@inheritDoc}
+     */
+    public function onBootstrap(EventInterface $e)
     {
         $application    = $e->getApplication();
         $eventManager   = $application->getEventManager();
@@ -18,11 +28,17 @@ class Module
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getAutoloaderConfig()
     {
         return [
@@ -37,6 +53,9 @@ class Module
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getServiceConfig()
     {
         return [
