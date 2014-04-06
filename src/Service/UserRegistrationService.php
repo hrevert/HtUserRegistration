@@ -7,7 +7,6 @@ use ZfcUser\Entity\UserInterface;
 use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
-use HtUserRegistration\Entity\UserRegistration;
 use Zend\Crypt\Password\Bcrypt;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface

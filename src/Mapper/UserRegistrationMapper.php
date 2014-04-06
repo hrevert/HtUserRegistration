@@ -4,6 +4,7 @@ namespace HtUserRegistration\Mapper;
 use ZfcUser\Entity\UserInterface;
 use ZfcBase\Mapper\AbstractDbMapper;
 use HtUserRegistration\Entity\UserRegistrationInterface;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class UserRegistrationMapper extends AbstractDbMapper implements UserRegistrationMapperInterface
 {
@@ -30,7 +31,7 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
     /**
      * {@inheritDoc}
      */
-    public function insert($entity)
+    public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
         $this->checkEntity($entity, __METHOD__);
 
@@ -40,7 +41,7 @@ class UserRegistrationMapper extends AbstractDbMapper implements UserRegistratio
     /**
      * {@inheritDoc}
      */
-    public function update($entity, $where = null)
+    public function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
     {
         $this->checkEntity($entity, __METHOD__);
         if (!$where) {
