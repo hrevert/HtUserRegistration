@@ -8,7 +8,7 @@ class UserRegistrationHydrator extends ClassMethods
 {
     public function extract($object)
     {
-        $this->checkEntity($object, __METHOD__);
+        $this->validateEntity($object, __METHOD__);
         $data = parent::extract($object);
         if ($data['request_time'] instanceof \DateTime) {
             $data['request_time'] = $data['request_time']->format('Y-m-d H:i:s');
@@ -24,7 +24,7 @@ class UserRegistrationHydrator extends ClassMethods
 
     public function hydrate(array $data, $object)
     {
-        $this->checkEntity($object, __METHOD__);
+        $this->validateEntity($object, __METHOD__);
 
         if (!$data['request_time'] instanceof \DateTime) {
             $data['request_time'] = new \DateTime($data['request_time']);
@@ -33,7 +33,7 @@ class UserRegistrationHydrator extends ClassMethods
         return parent::hydrate($data, $object);
     }
 
-    protected function checkEntity($object, $method)
+    protected function validateEntity($object, $method)
     {
         if (!$object instanceof UserRegistration) {
             throw new Exception\InvalidArgumentException(

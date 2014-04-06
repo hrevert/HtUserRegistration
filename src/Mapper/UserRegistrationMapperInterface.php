@@ -22,13 +22,14 @@ interface UserRegistrationMapperInterface
      * @param  UserRegistration                             $entity
      * @return \Zend\Db\Adapter\Driver\ResultInterface|null
      */
-    public function insert($entity, $tableName = null, HydratorInterface $hydrator = null);
+    public function insert($entity);
 
     /**
      * Updates registration data related to a user
      *
      * @param  UserRegistration                             $entity
+     * @param string|array|closure $where
      * @return \Zend\Db\Adapter\Driver\ResultInterface|null
      */
-    public function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null);
+    public function update($entity, $where = null);
 }

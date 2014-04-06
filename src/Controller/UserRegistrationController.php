@@ -4,6 +4,7 @@ namespace HtUserRegistration\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use HtUserRegistration\Service\UserRegistrationServiceInterface;
 use Zend\View\Model\ViewModel;
+use HtUserRegistration\Mapper\UserRegistrationMapperInterface;
 
 class UserRegistrationController extends AbstractActionController
 {
@@ -18,7 +19,7 @@ class UserRegistrationController extends AbstractActionController
     protected $userMapper;
 
     /**
-     * @var \HtUserRegistration\Mapper\UserRegistrationMapperInterface
+     * @var UserRegistrationMapperInterface
      */
     protected $userRegistrationMapper;
 
