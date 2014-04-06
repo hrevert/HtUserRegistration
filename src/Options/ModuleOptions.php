@@ -63,6 +63,11 @@ class ModuleOptions implements
      */
     protected $passwordRequestEmailSubject = 'Set Your Password';
 
+    /**
+     * @var string
+     */
+    protected $postVerificationRoute = 'zfcuser/login';
+
     public function setEmailFromAddress($emailFromAddress)
     {
         $this->emailFromAddress = $emailFromAddress;
@@ -193,5 +198,20 @@ class ModuleOptions implements
     public function getPasswordRequestEmailSubject()
     {
         return $this->passwordRequestEmailSubject;
+    }
+
+    /**
+     * 
+     */
+    public function setPostVerificationRoute($postVerificationRoute)
+    {
+        $this->postVerificationRoute = $postVerificationRoute;
+
+        return $this;
+    }
+
+    public function getPostVerificationRoute()
+    {
+        return $this->postVerificationRoute;
     }
 }

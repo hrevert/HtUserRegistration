@@ -23,6 +23,11 @@ class UserRegistrationController extends AbstractActionController
     protected $userRegistrationMapper;
 
     /**
+     * @var \HtUserRegistration\Options\ModuleOptions
+     */
+    protected $options;
+
+    /**
      * Constructor
      *
      * @param UserRegistrationServiceInterface $userRegistrationService
@@ -52,7 +57,7 @@ class UserRegistrationController extends AbstractActionController
 
         if ($this->userRegistrationService->verifyEmail($user, $token)) {
             // email verified
-            return $this->redirect()->toRoute('zfcuser/login');
+            return $this->redirectToPostVerificationRoute();
         }
 
         // email not verified, probably invalid token
@@ -90,7 +95,7 @@ class UserRegistrationController extends AbstractActionController
 
         if ($record->isResponded()) {
             // old link, password is already set by the user
-            return $this->redirect()->toRoute('zfcuser/login');
+            return $this->redirectToPostVerificationRoute();
         }
 
         $form = $this->getServiceLocator()->get('HtUserRegistration\SetPasswordForm');
@@ -98,9 +103,9 @@ class UserRegistrationController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
-               $this->userRegistrationService->setPassword($form->getData(), $record);
+                $this->userRegistrationService->setPassword($form->getData(), $record);
 
-               return $this->redirect()->toRoute('zfcuser/login');
+                return $this->redirectToPostVerificationRoute();
             }
         }
 
@@ -132,5 +137,19 @@ class UserRegistrationController extends AbstractActionController
         }
 
         return $this->userRegistrationMapper;
+    }
+
+    protected function getOptions()
+    {
+        if (!$this->options) {
+            $this->options = $this->getServiceLocator()->get('HtUserRegistration\ModuleOptions');
+        }
+
+        return $this->options;
+    }
+
+    protected function redirectToPostVerificationRoute()
+    {
+        return $this->redirect()->toRoute($this->getOptions()->getPostVerificationRoute());
     }
 }
