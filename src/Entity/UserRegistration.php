@@ -26,16 +26,22 @@ class UserRegistration implements UserRegistrationInterface
     protected $requestTime;
 
     /**
-     * @var int
+     * @var bool
      */
     protected $responded = false;
 
     /**
+     * Constructor
      * Intiliazes the entity
+     *
+     * @param UserInterface|null $user
      */
-    public function __construct()
+    public function __construct(UserInterface $user = null)
     {
         $this->requestTime = new DateTime;
+        if ($user) {
+            $this->setUser($user);
+        }
     }
 
     /**

@@ -1,7 +1,9 @@
 <?php
 namespace HtUserRegistration\Options;
 
-class ModuleOptions implements
+use Zend\Stdlib\AbstractOptions;
+
+class ModuleOptions extends AbstractOptions implements
     TemplateOptionsInterface,
     RequestExpiryOptionsInterface,
     EmailOptionsInterface,
@@ -132,7 +134,7 @@ class ModuleOptions implements
     {
         $this->registrationTableName = $registrationTableName;
 
-        return $this->this;
+        return $this;
     }
 
     public function getRegistrationTableName()
@@ -188,7 +190,7 @@ class ModuleOptions implements
         return $this->verificationEmailSubject;
     }
 
-    public function setPasswordRequestEmailSubject()
+    public function setPasswordRequestEmailSubject($passwordRequestEmailSubject)
     {
         $this->passwordRequestEmailSubject = $passwordRequestEmailSubject;
 
