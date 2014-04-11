@@ -5,7 +5,7 @@ HtUserRegistration
 [![Latest Stable Version](https://poser.pugx.org/hrevert/ht-user-registration/v/stable.png)](https://packagist.org/packages/hrevert/ht-user-registration)
 [![Latest Unstable Version](https://poser.pugx.org/hrevert/ht-user-registration/v/unstable.png)](https://packagist.org/packages/hrevert/ht-user-registration)
 [![Total Downloads](https://poser.pugx.org/hrevert/ht-user-registration/downloads.png)](https://packagist.org/packages/hrevert/ht-user-registration)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hrevert/HtUserRegistration/badges/quality-score.png?s=8cd6a75071eeda828e640a9375688d86b2ad5f16)](https://scrutinizer-ci.com/g/hrevert/HtUserRegistration/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hrevert/HtUserRegistration/badges/quality-score.png?s=df5869789fc1c3925a7a4ebc5d6d3c13ca032975)](https://scrutinizer-ci.com/g/hrevert/HtUserRegistration/)
 
 A Zend Framework 2 module which extends the registration feature of ZfcUser. When public registration is enabled, it provides email address verfication feature and when public registration is disabled, it sends email to the user`s email address with a link to set their account password.
 
