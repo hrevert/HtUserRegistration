@@ -65,6 +65,7 @@ class Module implements
                 'HtUserRegistration\UserRegistrationService' => 'HtUserRegistration\Factory\UserRegistrationServiceFactory',
                 'HtUserRegistration\SetPasswordForm' => 'HtUserRegistration\Factory\SetPasswordFormFactory',
                 'HtUserRegistration\Authentication\Adapter\EmailVerification' => 'HtUserRegistration\Authentication\Adapter\EmailVerificationFactory',
+                'HtUserRegistration\Mailer\Mailer' => 'HtUserRegistration\Factory\MailerFactory',
             ],
             'aliases' => [
                 'HtUserRegistration\DbAdapter' => 'Zend\Db\Adapter\Adapter'

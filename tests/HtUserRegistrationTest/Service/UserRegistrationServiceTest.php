@@ -24,5 +24,5 @@ class UserRegistrationServiceTest extends \PHPUnit_Framework_TestCase
         $entity->setRequestTime(new \DateTime('23 hours ago'));
         $this->assertEquals(false, $service->isTokenExpired($entity));
     }
-      
+     
 }
