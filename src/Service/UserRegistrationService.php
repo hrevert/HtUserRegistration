@@ -53,20 +53,9 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     public function sendVerificationEmail(UserInterface $user)
     {
-        // suppose email is sent
         $registrationRecord = $this->createRegistrationRecord($user);
-
-        $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
-
-        $message = $mailService->createHtmlMessage(
-            $this->getOptions()->getEmailFromAddress(),
-            $user->getEmail(),
-            $this->getOptions()->getVerificationEmailSubject(),
-            $this->getOptions()->getVerificationEmailTemplate(),
-            array('user' => $user, 'registrationRecord' => $registrationRecord)
-        );
-
-        $mailService->send($message);
+        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
+        $mailer->sendVerificationEmail($registrationRecord);
 
     }
 
@@ -75,20 +64,9 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     public function sendPasswordRequestEmail(UserInterface $user)
     {
-        // suppose email is sent
         $registrationRecord = $this->createRegistrationRecord($user);
-
-        $mailService = $this->getServiceLocator()->get('goaliomailservice_message');
-
-        $message = $mailService->createHtmlMessage(
-            $this->getOptions()->getEmailFromAddress(),
-            $user->getEmail(),
-            $this->getOptions()->getPasswordRequestEmailSubject(),
-            $this->getOptions()->getPasswordRequestEmailTemplate(),
-            array('user' => $user, 'registrationRecord' => $registrationRecord)
-        );
-
-        $mailService->send($message);
+        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
+        $mailer->sendPasswordRequestEmail($registrationRecord);
     }
 
     /**
