@@ -48,7 +48,7 @@ class Mailer implements MailerInterface
     /**
      * {@inheritDoc}
      */
-    public function sendPasswordRequestEmail(UserRegistrationInterface $userRegistration)
+    public function sendPasswordRequestEmail(UserRegistrationInterface $registrationRecord)
     {
         $this->sendMail(
             $registrationRecord, 
