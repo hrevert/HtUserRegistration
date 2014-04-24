@@ -65,7 +65,7 @@ class UserRegistration implements UserRegistrationInterface
     /**
      * {@inheritDoc}
      */
-    public function generateRequestKey()
+    public function generateToken()
     {
         $this->setToken(Rand::getString(static::REQUEST_KEY_LENGTH, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', true));
     }

@@ -30,7 +30,7 @@ interface UserRegistrationInterface
      *
      * @return void
      */
-    public function generateRequestKey();
+    public function generateToken();
 
     /**
      * Sets user
