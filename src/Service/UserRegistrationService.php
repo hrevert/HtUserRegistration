@@ -101,10 +101,10 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     {
         $entityClass = $this->getOptions()->getRegistrationEntityClass();
         $entity = new $entityClass($user);
-        $this->getEventManager()->trigger(__METHOD__, $this, array('user' => $user, 'record' => $entity));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'record' => $entity));
         $entity->generateRequestKey();
         $this->getUserRegistrationMapper()->insert($entity);
-        $this->getEventManager()->trigger(__METHOD__ . '.post', $this, array('user' => $user, 'record' => $entity));
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'record' => $entity));
 
         return $entity;
     }
@@ -115,7 +115,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function verifyEmail(UserInterface $user, $token)
     {
         $record = $this->getUserRegistrationMapper()->findByUser($user);
-        $this->getEventManager()->trigger(__METHOD__, $this, array('user' => $user, 'token' => $token, 'record' => $record));
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'token' => $token, 'record' => $record));
 
         if (!$record || !$this->isTokenValid($user, $token, $record)) {
             return false;
@@ -125,7 +125,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
             $this->getUserRegistrationMapper()->update($record);
         }
 
-        $this->getEventManager()->trigger(__METHOD__ . '.post', $this, array('user' => $user, 'token' => $token, 'record' => $record));
+        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'token' => $token, 'record' => $record));
 
         return true;
     }
