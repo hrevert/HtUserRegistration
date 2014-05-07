@@ -13,8 +13,7 @@ $options = array(
      * Default: empty
      */
     'email_from_address' => array(
-        'email' => 'your_email_address@here.com',
-        'name' => 'Your name',
+        'your_email_address@here.com'
     ),
 
     /**
