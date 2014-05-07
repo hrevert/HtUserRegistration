@@ -1,5 +1,5 @@
 {
-    "name": "mrova/ht-user-registration",
+    "name": "hrevert/ht-user-registration",
     "description": "A Zend Framework 2 module which extends the registration feature of ZfcUser with email address verification",
     "type": "library",
     "license": "MIT",
