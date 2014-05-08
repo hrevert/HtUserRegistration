@@ -3,7 +3,7 @@
 
 Please click on the following link to verify your email address
 <br/>
-<?php $link =  $this->url('zfcuser/verify_email', array('userId' => $user->getId(), 'token' => $registrationRecord->getToken())); ?>
+<?php $link = $this->serverUrl() . $this->url('zfcuser/verify_email', array('userId' => $user->getId(), 'token' => $registrationRecord->getToken())); ?>
 <a href="<?php echo $link ?>">
     <?php echo $link; ?>
 </a>
