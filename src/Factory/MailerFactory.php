@@ -11,7 +11,7 @@ class MailerFactory implements FactoryInterface
     {
         return new Mailer(
             $serviceLocator->get('HtUserRegistration\ModuleOptions'), 
-            $serviceLocator->get('goaliomailservice_message')
+            $serviceLocator->get('MtMail\Service\Mail')
         );
     }    
 }

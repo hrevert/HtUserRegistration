@@ -3,7 +3,7 @@ namespace HtUserRegistration\Mailer;
 
 use HtUserRegistration\Entity\UserRegistrationInterface;
 use HtUserRegistration\Options\ModuleOptions;
-use GoalioMailService\Mail\Service\Message as MailService;
+use MtMail\Service\Mail as MailService;
 
 class Mailer implements MailerInterface
 {
@@ -21,6 +21,7 @@ class Mailer implements MailerInterface
      * Constructor
      *
      * @param ModuleOptions $options
+     * @param MailService $mailService
      */
     public function __construct(ModuleOptions $options, MailService $mailService)
     {
@@ -67,14 +68,15 @@ class Mailer implements MailerInterface
     protected function sendMail(UserRegistrationInterface $registrationRecord, $subject, $template)
     {
         $user = $registrationRecord->getUser();
-
-        $message = $this->mailService->createHtmlMessage(
-            $this->getOptions()->getEmailFromAddress(),
-            $user->getEmail(),
-            $subject,
-            $template,
+        $message = $this->mailService->compose(
+            ['to' => $user->getEmail()], 
+            $template, 
             ['user' => $user, 'registrationRecord' => $registrationRecord]
         );
+        if ($this->getOptions()->getEmailFromAddress()) {
+            $message->setFrom($this->getOptions()->getEmailFromAddress());
+        }
+        $message->setSubject($subject);
 
         return $this->mailService->send($message);        
     }

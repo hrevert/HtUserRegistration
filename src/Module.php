@@ -18,7 +18,7 @@ class Module implements
      */
     public function onBootstrap(EventInterface $e)
     {
-        $application    = $e->getApplication();
+        $application    = $e->getParam('application');
         $eventManager   = $application->getEventManager();
         $sharedManager  = $eventManager->getSharedManager();
         $sharedManager->attach('ZfcUser\Service\User', 'register.post', function (EventInterface $event) use ($application) {

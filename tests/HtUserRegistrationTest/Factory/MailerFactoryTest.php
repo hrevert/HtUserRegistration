@@ -12,7 +12,10 @@ class MailerFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $serviceManager = new ServiceManager;
         $serviceManager->setService('HtUserRegistration\ModuleOptions', new ModuleOptions);
-        $serviceManager->setService('goaliomailservice_message', new Message);
+        $mailService = $this->getMockBuilder('MtMail\Service\Mail')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('MtMail\Service\Mail', $mailService);
         $factory = new MailerFactory;
         $this->assertInstanceOf('HtUserRegistration\Mailer\Mailer', $factory->createService($serviceManager));
     }    

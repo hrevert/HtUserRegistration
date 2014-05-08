@@ -21,7 +21,7 @@
     "require": {
         "php": ">=5.4",
         "zf-commons/zfc-user": "0.1.*",
-        "goalio/goalio-mailservice": "1.*"
+        "mtymek/mt-mail":"1.0.*"
     },
     "suggest": {
         
