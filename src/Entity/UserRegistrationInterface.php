@@ -26,7 +26,7 @@ interface UserRegistrationInterface
     public function getToken();
 
     /**
-     * Generates a random requestKey
+     * Generates a random token
      *
      * @return void
      */
