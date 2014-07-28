@@ -2,22 +2,22 @@
 namespace HtUserRegistrationTest\Service;
 
 use HtUserRegistration\Service\UserRegistrationService;
-use Zend\ServiceManager\ServiceManager;
 use HtUserRegistration\Options\ModuleOptions;
 use HtUserRegistration\Entity\UserRegistration;
-use ZfcUser\Entity\User;
 
 class UserRegistrationServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsTokenExpired()
     {
-        $service = new UserRegistrationService();        
-        $serviceManager = new ServiceManager;
-        $service->setServiceLocator($serviceManager);
+        $userRegistrationMapper = $this->getMock('HtUserRegistration\Mapper\UserRegistrationMapperInterface');
         $options = new ModuleOptions([
             'request_expiry' => 86400, // 1 day
         ]);
-        $serviceManager->setService('HtUserRegistration\ModuleOptions', $options);
+        $userMapper = $this->getMock('ZfcUser\Mapper\UserInterface');
+        $zfcUserOptions = $this->getMock('ZfcUser\Options\ModuleOptions');
+
+        $service = new UserRegistrationService($userRegistrationMapper, $options, $userMapper, $zfcUserOptions);        
+
         $entity = new UserRegistration;
         $entity->setRequestTime(new \DateTime('25 hours ago'));
         $this->assertEquals(true, $service->isTokenExpired($entity));

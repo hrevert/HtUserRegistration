@@ -29,11 +29,6 @@ class Mailer implements MailerInterface
         $this->mailService = $mailService;
     }
 
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -41,8 +36,8 @@ class Mailer implements MailerInterface
     {
         $this->sendMail(
             $registrationRecord, 
-            $this->getOptions()->getVerificationEmailSubject(), 
-            $this->getOptions()->getVerificationEmailTemplate()
+            $this->options->getVerificationEmailSubject(), 
+            $this->options->getVerificationEmailTemplate()
         );
     }
 
@@ -53,8 +48,8 @@ class Mailer implements MailerInterface
     {
         $this->sendMail(
             $registrationRecord, 
-            $this->getOptions()->getPasswordRequestEmailSubject(), 
-            $this->getOptions()->getPasswordRequestEmailTemplate()
+            $this->options->getPasswordRequestEmailSubject(), 
+            $this->options->getPasswordRequestEmailTemplate()
         );        
     }
 
@@ -73,8 +68,8 @@ class Mailer implements MailerInterface
             $template, 
             ['user' => $user, 'registrationRecord' => $registrationRecord]
         );
-        if ($this->getOptions()->getEmailFromAddress()) {
-            $message->setFrom($this->getOptions()->getEmailFromAddress());
+        if ($this->options->getEmailFromAddress()) {
+            $message->setFrom($this->options->getEmailFromAddress());
         }
         $message->setSubject($subject);
 

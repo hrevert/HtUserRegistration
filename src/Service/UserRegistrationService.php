@@ -8,6 +8,9 @@ use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
 use Zend\Crypt\Password\Bcrypt;
+use HtUserRegistration\Options\ModuleOptions;
+use ZfcUser\Options\ModuleOptions as ZfcUserOptions;
+use ZfcUser\Mapper\UserInterface as UserMapperInterface;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {
@@ -17,21 +20,40 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     protected $userRegistrationMapper;
 
     /**
-     * @var \HtUserRegistration\Options\ModuleOptions
+     * @var ModuleOptions
      */
-    protected $moduleOptions;
+    protected $options;
 
     /**
-     * @var \ZfcUser\Options\ModuleOptions
+     * @var ZfcUserOptions
      */
     protected $zfcUserOptions;
 
     /**
-     * @var \ZfcUser\Mapper\UserInterface
+     * @var UserMapperInterface
      */
     protected $userMapper;
 
-    use \Zend\ServiceManager\ServiceLocatorAwareTrait;
+    /**
+     * Constructor
+     *
+     * @param UserRegistrationMapperInterface $userRegistrationMapper
+     * @param ModuleOptions $options
+     * @param ZfcUserOptions $zfcUserOptions
+     * @paramUserMapperInterface $userMapper
+     */
+    public function __construct(
+        UserRegistrationMapperInterface $userRegistrationMapper,
+        ModuleOptions $options,
+        UserMapperInterface $userMapper,
+        ZfcUserOptions $zfcUserOptions
+    )
+    {
+        $this->userRegistrationMapper = $userRegistrationMapper;
+        $this->options                = $options;
+        $this->zfcUserOptions         = $zfcUserOptions;
+        $this->userMapper             = $userMapper;
+    }
 
     /**
      * {@inheritDoc}
@@ -165,10 +187,6 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     protected function getUserRegistrationMapper()
     {
-        if (!$this->userRegistrationMapper instanceof UserRegistrationMapperInterface) {
-            $this->userRegistrationMapper = $this->getServiceLocator()->get('HtUserRegistration\UserRegistrationMapper');
-        }
-
         return $this->userRegistrationMapper;
     }
 
@@ -177,34 +195,22 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     protected function getOptions()
     {
-        if (!$this->moduleOptions) {
-            $this->moduleOptions = $this->getServiceLocator()->get('HtUserRegistration\ModuleOptions');
-        }
-
-        return $this->moduleOptions;
+        return $this->options;
     }
 
     /**
      * Gets zfcUserOptions
      */
-    public function getZfcUserOptions()
+    protected function getZfcUserOptions()
     {
-        if (!$this->zfcUserOptions) {
-            $this->zfcUserOptions = $this->getServiceLocator()->get('zfcuser_module_options');
-        }
-
         return $this->zfcUserOptions;
     }
 
     /**
      * Gets userMapper
      */
-    public function getUserMapper()
+    protected function getUserMapper()
     {
-        if (!$this->userMapper) {
-            $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
-        }
-
         return $this->userMapper;
     }
 }
