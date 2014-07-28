@@ -18,6 +18,7 @@ class Module implements
      */
     public function onBootstrap(EventInterface $e)
     {
+        /** @var \Zend\Mvc\Application */
         $application    = $e->getParam('application');
         $eventManager   = $application->getEventManager();
         $sharedManager  = $eventManager->getSharedManager();

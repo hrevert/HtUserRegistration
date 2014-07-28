@@ -9,14 +9,25 @@ class UserRegistrationTest extends \PHPUnit_Framework_TestCase
     public function testSettersAndGetters()
     {
         $user = new User;
-        $entity = new UserRegistration($user);
-        $entity->setToken('qweqweqwe');
+        $userRegistration = new UserRegistration($user);
+        $userRegistration->setToken('qweqweqwe');
         $requestTime = new \DateTime('24 hours ago');
-        $entity->setRequestTime($requestTime);
-        $entity->setResponded(true);
-        $this->assertEquals($user, $entity->getUser());
-        $this->assertEquals('qweqweqwe', $entity->getToken());
-        $this->assertEquals($requestTime, $entity->getRequestTime());
-        $this->assertEquals(true, $entity->getResponded());
+        $userRegistration->setRequestTime($requestTime);
+        $userRegistration->setResponded(true);
+        $this->assertEquals($user, $userRegistration->getUser());
+        $this->assertEquals('qweqweqwe', $userRegistration->getToken());
+        $this->assertEquals($requestTime, $userRegistration->getRequestTime());
+        $this->assertEquals(true, $userRegistration->getResponded());
+        $this->assertTrue($userRegistration->isResponded());
+        $userRegistration->setResponded(false);
+        $this->assertFalse($userRegistration->isResponded());
+    }
+
+    public function testGenerateToken()
+    {
+        $userRegistration = new UserRegistration;
+        $userRegistration->setToken('qweqweqwe');
+        $userRegistration->generateToken();
+        $this->assertNotEquals('qweqweqwe', $userRegistration->getToken());
     }
 }

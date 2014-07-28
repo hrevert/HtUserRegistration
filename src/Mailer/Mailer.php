@@ -25,8 +25,8 @@ class Mailer implements MailerInterface
      */
     public function __construct(ModuleOptions $options, MailService $mailService)
     {
-        $this->options = $options;
-        $this->mailService = $mailService;
+        $this->options      = $options;
+        $this->mailService  = $mailService;
     }
 
     /**
@@ -68,9 +68,12 @@ class Mailer implements MailerInterface
             $template, 
             ['user' => $user, 'registrationRecord' => $registrationRecord]
         );
-        if ($this->options->getEmailFromAddress()) {
-            $message->setFrom($this->options->getEmailFromAddress());
+
+        $fromEmail = $this->options->getEmailFromAddress();
+        if ($fromEmail) {
+            $message->setFrom($fromEmail);
         }
+
         $message->setSubject($subject);
 
         return $this->mailService->send($message);        
