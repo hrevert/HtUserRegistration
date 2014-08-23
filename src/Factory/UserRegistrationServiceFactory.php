@@ -10,6 +10,7 @@ class UserRegistrationServiceFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new UserRegistrationService(
+            $serviceLocator,
             $serviceLocator->get('HtUserRegistration\UserRegistrationMapper'),
             $serviceLocator->get('HtUserRegistration\ModuleOptions'),
             $serviceLocator->get('zfcuser_user_mapper'),

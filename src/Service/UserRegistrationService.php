@@ -3,6 +3,7 @@ namespace HtUserRegistration\Service;
 
 use HtUserRegistration\Mapper\UserRegistrationMapperInterface;
 use Zend\EventManager\EventInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcUser\Entity\UserInterface;
 use ZfcBase\EventManager\EventProvider;
 use DateTime;
@@ -14,6 +15,12 @@ use ZfcUser\Mapper\UserInterface as UserMapperInterface;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {
+    /**
+     *
+     * @var ServiceLocatorInterface 
+     */
+    protected $serviceManager;
+    
     /**
      * @var UserRegistrationMapperInterface
      */
@@ -43,12 +50,14 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      * @paramUserMapperInterface $userMapper
      */
     public function __construct(
+        ServiceLocatorInterface $serviceManager,
         UserRegistrationMapperInterface $userRegistrationMapper,
         ModuleOptions $options,
         UserMapperInterface $userMapper,
         ZfcUserOptions $zfcUserOptions
     )
     {
+        $this->serviceManager = $serviceManager;
         $this->userRegistrationMapper = $userRegistrationMapper;
         $this->options                = $options;
         $this->zfcUserOptions         = $zfcUserOptions;
@@ -76,9 +85,8 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendVerificationEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
+        $mailer = $this->serviceManager->get('HtUserRegistration\Mailer\Mailer');
         $mailer->sendVerificationEmail($registrationRecord);
-
     }
 
     /**
@@ -87,7 +95,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendPasswordRequestEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
+        $mailer = $this->serviceManager->get('HtUserRegistration\Mailer\Mailer');
         $mailer->sendPasswordRequestEmail($registrationRecord);
     }
 
