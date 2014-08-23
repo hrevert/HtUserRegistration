@@ -7,7 +7,7 @@ use ZfcUser\Entity\UserInterface;
 use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
-use HtUserRegistration\Mailer\Mailer;
+use HtUserRegistration\Mailer\MailerInterface;
 use Zend\Crypt\Password\Bcrypt;
 use HtUserRegistration\Options\ModuleOptions;
 use ZfcUser\Options\ModuleOptions as ZfcUserOptions;
@@ -53,7 +53,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function __construct(
         UserRegistrationMapperInterface $userRegistrationMapper,
         ModuleOptions $options,
-        Mailer $mailer,
+        MailerInterface $mailer,
         UserMapperInterface $userMapper,
         ZfcUserOptions $zfcUserOptions
     )

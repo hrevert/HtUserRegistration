@@ -13,10 +13,11 @@ class UserRegistrationServiceTest extends \PHPUnit_Framework_TestCase
         $options = new ModuleOptions([
             'request_expiry' => 86400, // 1 day
         ]);
+        $mailer = $this->getMock('HtUserRegistration\Mailer\MailerInterface');
         $userMapper = $this->getMock('ZfcUser\Mapper\UserInterface');
         $zfcUserOptions = $this->getMock('ZfcUser\Options\ModuleOptions');
 
-        $service = new UserRegistrationService($userRegistrationMapper, $options, $userMapper, $zfcUserOptions);        
+        $service = new UserRegistrationService($userRegistrationMapper, $options, $mailer, $userMapper, $zfcUserOptions);        
 
         $entity = new UserRegistration;
         $entity->setRequestTime(new \DateTime('25 hours ago'));

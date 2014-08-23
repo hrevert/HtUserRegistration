@@ -15,6 +15,9 @@ class UserRegistrationServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $moduleOptions = $this->getMock('HtUserRegistration\Options\ModuleOptions');
         $serviceManager->setService('HtUserRegistration\ModuleOptions', $moduleOptions);
+        
+        $mailer = $this->getMock('HtUserRegistration\Mailer\MailerInterface');
+        $serviceManager->setService('HtUserRegistration\Mailer\Mailer', $mailer);
 
         $userMapper = $this->getMock('ZfcUser\Mapper\UserInterface');
         $serviceManager->setService('zfcuser_user_mapper', $userMapper);
