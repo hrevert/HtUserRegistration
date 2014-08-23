@@ -28,7 +28,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     
     /**
      *
-     * @var Mailer 
+     * @var MailerInterface 
      */
     protected $mailer;
 
