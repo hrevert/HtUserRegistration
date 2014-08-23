@@ -3,11 +3,11 @@ namespace HtUserRegistration\Service;
 
 use HtUserRegistration\Mapper\UserRegistrationMapperInterface;
 use Zend\EventManager\EventInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use ZfcUser\Entity\UserInterface;
 use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
+use HtUserRegistration\Mailer\Mailer;
 use Zend\Crypt\Password\Bcrypt;
 use HtUserRegistration\Options\ModuleOptions;
 use ZfcUser\Options\ModuleOptions as ZfcUserOptions;
@@ -15,11 +15,6 @@ use ZfcUser\Mapper\UserInterface as UserMapperInterface;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {
-    /**
-     *
-     * @var ServiceLocatorInterface 
-     */
-    protected $serviceManager;
     
     /**
      * @var UserRegistrationMapperInterface
@@ -30,6 +25,12 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      * @var ModuleOptions
      */
     protected $options;
+    
+    /**
+     *
+     * @var Mailer 
+     */
+    protected $mailer;
 
     /**
      * @var ZfcUserOptions
@@ -50,16 +51,16 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      * @paramUserMapperInterface $userMapper
      */
     public function __construct(
-        ServiceLocatorInterface $serviceManager,
         UserRegistrationMapperInterface $userRegistrationMapper,
         ModuleOptions $options,
+        Mailer $mailer,
         UserMapperInterface $userMapper,
         ZfcUserOptions $zfcUserOptions
     )
-    {
-        $this->serviceManager = $serviceManager;
+    {       
         $this->userRegistrationMapper = $userRegistrationMapper;
         $this->options                = $options;
+        $this->mailer                 = $mailer;
         $this->zfcUserOptions         = $zfcUserOptions;
         $this->userMapper             = $userMapper;
     }
@@ -85,8 +86,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendVerificationEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->serviceManager->get('HtUserRegistration\Mailer\Mailer');
-        $mailer->sendVerificationEmail($registrationRecord);
+        $this->mailer->sendVerificationEmail($registrationRecord);
     }
 
     /**
@@ -95,8 +95,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendPasswordRequestEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->serviceManager->get('HtUserRegistration\Mailer\Mailer');
-        $mailer->sendPasswordRequestEmail($registrationRecord);
+        $this->mailer->sendPasswordRequestEmail($registrationRecord);
     }
 
     /**
