@@ -7,6 +7,7 @@ use ZfcUser\Entity\UserInterface;
 use ZfcBase\EventManager\EventProvider;
 use DateTime;
 use HtUserRegistration\Entity\UserRegistrationInterface;
+use HtUserRegistration\Mailer\MailerInterface;
 use Zend\Crypt\Password\Bcrypt;
 use HtUserRegistration\Options\ModuleOptions;
 use ZfcUser\Options\ModuleOptions as ZfcUserOptions;
@@ -14,6 +15,7 @@ use ZfcUser\Mapper\UserInterface as UserMapperInterface;
 
 class UserRegistrationService extends EventProvider implements UserRegistrationServiceInterface
 {
+    
     /**
      * @var UserRegistrationMapperInterface
      */
@@ -23,6 +25,12 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      * @var ModuleOptions
      */
     protected $options;
+    
+    /**
+     *
+     * @var MailerInterface 
+     */
+    protected $mailer;
 
     /**
      * @var ZfcUserOptions
@@ -45,12 +53,14 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function __construct(
         UserRegistrationMapperInterface $userRegistrationMapper,
         ModuleOptions $options,
+        MailerInterface $mailer,
         UserMapperInterface $userMapper,
         ZfcUserOptions $zfcUserOptions
     )
-    {
+    {       
         $this->userRegistrationMapper = $userRegistrationMapper;
         $this->options                = $options;
+        $this->mailer                 = $mailer;
         $this->zfcUserOptions         = $zfcUserOptions;
         $this->userMapper             = $userMapper;
     }
@@ -76,9 +86,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendVerificationEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
-        $mailer->sendVerificationEmail($registrationRecord);
-
+        $this->mailer->sendVerificationEmail($registrationRecord);
     }
 
     /**
@@ -87,8 +95,7 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function sendPasswordRequestEmail(UserInterface $user)
     {
         $registrationRecord = $this->createRegistrationRecord($user);
-        $mailer = $this->getServiceLocator()->get('HtUserRegistration\Mailer\Mailer');
-        $mailer->sendPasswordRequestEmail($registrationRecord);
+        $this->mailer->sendPasswordRequestEmail($registrationRecord);
     }
 
     /**

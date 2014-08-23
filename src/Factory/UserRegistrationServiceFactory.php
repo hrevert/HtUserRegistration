@@ -12,6 +12,7 @@ class UserRegistrationServiceFactory implements FactoryInterface
         return new UserRegistrationService(
             $serviceLocator->get('HtUserRegistration\UserRegistrationMapper'),
             $serviceLocator->get('HtUserRegistration\ModuleOptions'),
+            $serviceLocator->get('HtUserRegistration\Mailer\Mailer'),
             $serviceLocator->get('zfcuser_user_mapper'),
             $serviceLocator->get('zfcuser_module_options')
         );
