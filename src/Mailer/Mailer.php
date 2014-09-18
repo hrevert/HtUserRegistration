@@ -56,7 +56,7 @@ class Mailer implements MailerInterface
     /**
      * Sends mail
      *
-     * @param UserRegistrationInterface $registrationRecor
+     * @param UserRegistrationInterface $registrationRecord
      * @param string $subject
      * @param string $template
      */
