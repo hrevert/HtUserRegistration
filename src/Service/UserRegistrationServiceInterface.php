@@ -16,24 +16,6 @@ interface UserRegistrationServiceInterface
     public function onUserRegistration(EventInterface $e);
 
     /**
-     * Sends verification email
-     *
-     * @var UserInterface $user
-     *
-     * @return void
-     */
-    public function sendVerificationEmail(UserInterface $user);
-
-    /**
-     * Sends password request email
-     *
-     * @var UserInterface $user
-     *
-     * @return void
-     */
-    public function sendPasswordRequestEmail(UserInterface $user);
-
-    /**
      * Sets user`s email as verified
      *
      * @param  UserInterface $user
