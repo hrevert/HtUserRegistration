@@ -8,6 +8,7 @@ use ZfcUser\Entity\User;
 
 class UserRegistrationHydratorTest extends \PHPUnit_Framework_TestCase
 {
+
     public function testExtract()
     {
         $user = new User;
@@ -31,9 +32,20 @@ class UserRegistrationHydratorTest extends \PHPUnit_Framework_TestCase
             'request_time' => '2013-09-13 08:08:08',
             'token' => 'fat',
             'responded' => 1
-        ], $entity);
+                ], $entity);
         $this->assertEquals((new \DateTime('2013-09-13 08:08:08'))->getTimestamp(), $entity->getRequestTime()->getTimestamp());
         $this->assertEquals(true, $entity->isResponded());
         $this->assertEquals('fat', $entity->getToken());
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidArgumentException()
+    {
+        $object = new User();
+        $data = [];
+        (new UserRegistrationHydrator())->hydrate($data, $object);
+    }
+
 }
