@@ -71,33 +71,14 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
     public function onUserRegistration(EventInterface $e)
     {
         $user = $e->getParam('user');
+        $registrationRecord = $this->createRegistrationRecord($user);
         if ($this->getOptions()->getSendVerificationEmail() && $this->getZfcUserOptions()->getEnableRegistration()) {
-            $this->sendVerificationEmail($user);
+            $this->mailer->sendVerificationEmail($registrationRecord);
         } elseif ($this->getOptions()->getSendPasswordRequestEmail() && !$this->getZfcUserOptions()->getEnableRegistration()) {
-            $this->sendPasswordRequestEmail($user);
+            $this->mailer->sendPasswordRequestEmail($registrationRecord);
         }
-
-        // do nothing
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function sendVerificationEmail(UserInterface $user)
-    {
-        $registrationRecord = $this->createRegistrationRecord($user);
-        $this->mailer->sendVerificationEmail($registrationRecord);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function sendPasswordRequestEmail(UserInterface $user)
-    {
-        $registrationRecord = $this->createRegistrationRecord($user);
-        $this->mailer->sendPasswordRequestEmail($registrationRecord);
-    }
-
+    
     /**
      * Stored user registration record to database
      *
