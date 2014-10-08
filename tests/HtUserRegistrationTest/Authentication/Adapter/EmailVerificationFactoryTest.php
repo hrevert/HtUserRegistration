@@ -1,6 +1,6 @@
 <?php
 
-namespace HtUserRegistrationTest\Factory;
+namespace HtUserRegistrationTest\Authentication\Adapter;
 
 use Zend\ServiceManager\ServiceManager;
 use HtUserRegistration\Mapper\UserRegistrationMapper;

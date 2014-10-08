@@ -1,6 +1,6 @@
 <?php
 
-namespace HtUserRegistrationTest\Factory;
+namespace HtUserRegistrationTest\Controller\Factory;
 
 use Zend\ServiceManager\ServiceManager;
 use HtUserRegistration\Controller\Factory\UserRegistrationFactory;
