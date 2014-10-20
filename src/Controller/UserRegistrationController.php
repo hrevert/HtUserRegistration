@@ -119,7 +119,7 @@ class UserRegistrationController extends AbstractActionController
     /**
      * Gets userMapper
      */
-    public function getUserMapper()
+    protected function getUserMapper()
     {
         if (!$this->userMapper) {
             $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
