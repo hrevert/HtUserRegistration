@@ -386,11 +386,4 @@ class UserRegistrationControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    public function testGetUserMapper()
-    {
-        $this->serviceManager->setService('zfcuser_user_mapper', new User());
-
-        $this->assertInstanceOf('ZfcUser\Mapper\UserInterface', $this->controller->getUserMapper());
-    }
-
 }
