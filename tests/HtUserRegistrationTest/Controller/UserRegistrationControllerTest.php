@@ -325,7 +325,7 @@ class UserRegistrationControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testSetPasswordActionPasswordPost()
+    public function testSetPasswordActionPasswordFormValid()
     {
         $testArray = array('test' => 123);
 
@@ -374,6 +374,51 @@ class UserRegistrationControllerTest extends \PHPUnit_Framework_TestCase
         $response = $this->controller->getResponse();
 
         $this->assertEquals(302, $response->getStatusCode());
+    }
+
+    public function testSetPasswordActionPasswordFormInvalid()
+    {
+        $form = $this->getMockBuilder('ZfcUser\Form\ChangePassword')->disableOriginalConstructor()->getMock();
+        $form->expects($this->once())->method('setData');
+        $form->expects($this->once())
+                ->method('isValid')
+                ->willReturn(false);
+
+        $this->userRegistrationEntity->expects($this->once())
+                ->method('isResponded')
+                ->willReturn(false);
+
+        $this->zfcUserMapper->expects($this->once())
+                ->method('findById')
+                ->with($this->userId)
+                ->willReturn($this->zfcUserEntity);
+
+        $this->userRegistrationMapper->expects($this->once())
+                ->method('findByUser')
+                ->with($this->zfcUserEntity)
+                ->willReturn($this->userRegistrationEntity);
+
+        $this->userRegistrationService->expects($this->once())
+                ->method('isTokenValid')
+                ->with($this->zfcUserEntity, $this->token, $this->userRegistrationEntity)
+                ->willReturn(true);
+
+        $this->serviceManager->setService('zfcuser_user_mapper', $this->zfcUserMapper);
+        $this->serviceManager->setService('HtUserRegistration\UserRegistrationMapper', $this->userRegistrationMapper);
+        $this->serviceManager->setService('HtUserRegistration\SetPasswordForm', $form);
+
+        $this->request->setMethod(Request::METHOD_POST);
+
+        $this->routeMatch->setParam('action', $this->setPasswordRoute);
+        $this->routeMatch->setParam('userId', $this->userId);
+        $this->routeMatch->setParam('token', $this->token);
+
+        $result = $this->controller->dispatch($this->request);
+        $response = $this->controller->getResponse();
+
+        $this->assertInstanceOf('ZfcUser\Entity\UserInterface', $result['user']);
+        $this->assertInstanceOf('ZfcUser\Form\ChangePassword', $result['form']);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
 }
