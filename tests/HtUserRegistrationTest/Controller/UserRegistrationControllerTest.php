@@ -376,14 +376,4 @@ class UserRegistrationControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(302, $response->getStatusCode());
     }
 
-    public function test404()
-    {
-        $this->routeMatch->setParam('action', 'action-that-doesnt-exist');
-
-        $this->controller->dispatch($this->request);
-        $response = $this->controller->getResponse();
-
-        $this->assertEquals(404, $response->getStatusCode());
-    }
-
 }
