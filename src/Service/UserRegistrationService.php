@@ -85,7 +85,21 @@ class UserRegistrationService extends EventProvider implements UserRegistrationS
      */
     public function sendVerificationEmail(UserInterface $user)
     {
-        $registrationRecord = $this->createRegistrationRecord($user);
+        // check if record exists
+        $registrationRecord = $this->getUserRegistrationMapper()->findByUser($user);
+        $this->getEventManager()->trigger(__FUNCTION__, $this, array('user' => $user, 'record' => $registrationRecord));
+        
+        if (!$registrationRecord) {
+            // no record found, seems to be the first time
+            // create a new record
+            $registrationRecord = $this->createRegistrationRecord($user);
+        } else {
+            // a record was found
+            // update expiry
+            $registrationRecord->setRequestTime(new \DateTime());
+            $this->getUserRegistrationMapper()->update($registrationRecord);
+        }
+        
         $this->mailer->sendVerificationEmail($registrationRecord);
     }
 
